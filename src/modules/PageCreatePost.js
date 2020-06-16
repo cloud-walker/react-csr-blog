@@ -41,7 +41,7 @@ const createPost = async data => {
 export const PageCreatePost = () => {
   const [mutate, {data}] = useMutation(createPost)
   const {handleSubmit: createHandleSubmit, register, errors} = useForm()
-  const handleSubmit = createHandleSubmit(async values => {
+  const handleSubmit = createHandleSubmit(values => {
     return mutate({
       title: values.title,
       content: values.content,
@@ -52,7 +52,7 @@ export const PageCreatePost = () => {
     })
   })
 
-  if (data) {
+  if (data?.id) {
     return <Navigate to={`/post/${data.id}`} />
   }
 
