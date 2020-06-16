@@ -1,6 +1,7 @@
 import React from 'react'
 import {useQuery} from 'react-query'
 import {useParams} from 'react-router'
+import Markdown from 'react-markdown'
 
 import {Center} from './Center'
 import {Stack} from './Stack'
@@ -12,27 +13,25 @@ const getPost = async (key, id) => {
 
 export const PagePost = () => {
   const {id} = useParams()
-
   const {status, data} = useQuery(['post', id], getPost)
-  console.log({status, data})
-
-  if (status == 'error') {
-    return 'Error'
-  }
-
-  if (status == 'loading') {
-    return 'Loading...'
-  }
 
   return (
     <Center>
-      <Stack>
-        <h1>{data.title}</h1>
+      {status == 'error' ? (
+        <div>Something gone wrong.</div>
+      ) : status == 'loading' ? (
+        <div>Loading...</div>
+      ) : (
+        <Stack>
+          <h1>{data.title}</h1>
 
-        <img src={data.image} alt={data.title} />
+          <img src={data.image} alt={data.title} />
 
-        <main>{data.content}</main>
-      </Stack>
+          <Stack as="main">
+            <Markdown source={data.content} />
+          </Stack>
+        </Stack>
+      )}
     </Center>
   )
 }

@@ -16,8 +16,6 @@ export const PagePosts = () => {
   return (
     <Center>
       <Stack>
-        <h1>Posts</h1>
-
         {status == 'error' ? (
           <div>Something gone wrong.</div>
         ) : status == 'loading' ? (
