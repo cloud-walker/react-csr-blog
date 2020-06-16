@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "start": "parcel src/index.html"
+  },
+  "private": true,
+  "dependencies": {
+    "parcel": "^2.0.0-alpha.3.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-query": "^1.5.8",
+    "react-router": "^6.0.0-alpha.5",
+    "react-router-dom": "^6.0.0-alpha.5",
+    "styled-components": "^5.1.1"
+  }
+}
