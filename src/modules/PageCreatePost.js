@@ -1,32 +1,14 @@
 import React from 'react'
 import {useForm} from 'react-hook-form'
-import styled from 'styled-components'
 import {Navigate} from 'react-router'
 import {useMutation} from 'react-query'
 
 import {Center} from './Center'
 import {Stack} from './Stack'
-
-const Label = styled('label')`
-  display: block;
-`
-
-const Input = styled('input')`
-  min-width: 100%;
-  padding: 0.5rem;
-`
-
-const TextArea = styled('textarea')`
-  min-width: 100%;
-  max-width: 100%;
-  min-height: 20vh;
-  display: block;
-  padding: 0.5rem;
-`
-
-const Error = styled('div').attrs({role: 'alert'})`
-  color: red;
-`
+import {FormLabel} from './FormLabel'
+import {Input} from './Input'
+import {Textarea} from './Textarea'
+import {FormInlineError} from './FormInlineError'
 
 const createPost = async data => {
   return fetch('http://localhost:4000/posts', {
@@ -63,7 +45,7 @@ export const PageCreatePost = () => {
 
         <Stack as="form" onSubmit={handleSubmit} aria-label="form">
           <div>
-            <Label htmlFor="title">Title</Label>
+            <FormLabel htmlFor="title">Title</FormLabel>
             <Input
               type="text"
               name="title"
@@ -71,11 +53,13 @@ export const PageCreatePost = () => {
               aria-invalid={!!errors.title || undefined}
               ref={register({required: 'Title is required.'})}
             />
-            {!!errors.title && <Error>{errors.title.message}</Error>}
+            {!!errors.title && (
+              <FormInlineError>{errors.title.message}</FormInlineError>
+            )}
           </div>
 
           <div>
-            <Label htmlFor="image_tags">Image tags</Label>
+            <FormLabel htmlFor="image_tags">Image tags</FormLabel>
             <Input
               type="text"
               name="image_tags"
@@ -83,18 +67,22 @@ export const PageCreatePost = () => {
               aria-invalid={!!errors.image_tags || undefined}
               ref={register()}
             />
-            {!!errors.image_tags && <Error>{errors.image_tags.message}</Error>}
+            {!!errors.image_tags && (
+              <FormInlineError>{errors.image_tags.message}</FormInlineError>
+            )}
           </div>
 
           <div>
-            <Label htmlFor="content">Content</Label>
-            <TextArea
+            <FormLabel htmlFor="content">Content</FormLabel>
+            <Textarea
               name="content"
               id="content"
               aria-invalid={!!errors.content || undefined}
               ref={register({required: 'Content is required.'})}
             />
-            {!!errors.content && <Error>{errors.content.message}</Error>}
+            {!!errors.content && (
+              <FormInlineError>{errors.content.message}</FormInlineError>
+            )}
           </div>
 
           <button type="submit">Create</button>
